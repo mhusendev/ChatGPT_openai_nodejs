@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello</title>
+</head>
+<style>
+    .navbar{
+        width: 100%;
+        height: 50px;
+        background-color: #2596be;
+        display: flex;
+        justify-content: center;
+        color: #fff;
+        font-size: medium;
+    }
+    #textform {
+        width: 100%;
+        outline-color: #2596be;   
+
+    }
+    #btnsubmit {
+        width: 100%;
+        background-color: #2596be;
+        color: #fff;
+        margin-top: 2%;
+        outline-color: #2596be;
+        outline-style: none;
+        padding:5px;
+        border-color: #fff;
+        border-radius: 20px;
+    }
+</style>
+<body>
+    <div class="navbar">
+      <p>Chat AI By mhusen</p>
+    </div>
+
+
+    <div style="padding: 5%;">
+      
+          <input type="text" name="text" id="textform">
+          <button  id="btnsubmit" onclick="send()"> send </button>
+      
+        <hr>
+        <div id="isi2" markdown="1"></div><br>
+        <div id="isi" markdown="1"></div><br>
+    
+    </div>
+</body>
+</html>
+<script>
+const send = () =>{
+    var text = document.getElementById('textform').value;
+    document.getElementById('isi').innerHTML = 'Wait...'
+    let data = {
+        text:text
+    }
+     console.log(text)
+    fetch('http://localhost:3000/chatbot', {
+  method: 'POST',
+  headers: {
+    'Accept': 'application/json, text/plain, */*',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+}).then(res => res.json())
+  .then((res) => {
+    console.log(res)
+    document.getElementById('isi').innerHTML = res.markdown
+    // document.getElementById('isi2').innerHTML = res.text
+   
+  } );
+
+}
+
+</script>
